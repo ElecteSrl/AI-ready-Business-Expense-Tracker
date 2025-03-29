@@ -2,7 +2,7 @@
 
 A modern, feature-rich expense tracking application built with React, TypeScript, and Tailwind CSS. This application helps users manage their expenses, track budgets, and generate detailed financial reports.
 
-![Expense Tracker Screenshot](https://unsplash.com/photos/person-using-laptop-on-white-wooden-table-iusJ25iYu1c)
+![Expense Tracker Screenshot](https://unsplash.com/photos/person-using-laptop-on-white-wooden-table-iusJ25iYu1c?w=1200&h=630&fit=crop)
 
 ## Features
 
