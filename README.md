@@ -1,147 +1,61 @@
-# AI-Friendly Expense Tracker
+# AI-ready Business Expense Tracker
 
-A modern, feature-rich expense tracking application built with React, TypeScript, and Tailwind CSS. This application helps users manage their expenses, track budgets, and generate detailed financial reports.
+A small, local-first expense tracker for a business or a freelancer: expenses, budgets, recurring costs, a monthly forecast, and exports clean enough to hand to an analytics tool. Everything stays in the browser (localStorage); there is no account and no server.
 
-![Expense Tracker Screenshot](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=630&fit=crop)
+**Status:** maintained as a utility, not a product. Issues and pull requests are read; features are added when someone needs them.
+
+## What "AI-ready" means here
+
+The point of the app is the data it leaves behind, not the screens. Every record is a flat, typed row (date, amount, category, payment method, tax-deductible flag, tags, notes), and the CSV export writes exactly those columns with ISO dates and two-decimal amounts. That is the shape a forecasting or analytics service ingests without cleaning. The dashboard's own forecast is a three-month linear regression with an R² confidence figure: enough to see the direction, deliberately not more.
+
+If you want a real forecast, a report or a deck from the same data, export the CSV and upload it to the [ELECTE platform](https://platform.electe.net), which is what this app was built next to.
 
 ## Features
 
-- 📊 **Dashboard Overview**
-  - Total expenses summary
-  - Monthly trends and analytics
-  - Quick action buttons
-  - Category-wise expense breakdown
+- **Dashboard** with monthly totals, a category breakdown, and a next-month forecast card.
+- **Expenses** with categories, payment methods, receipt links, tax-deductible flag, tags and notes; search and filters.
+- **Recurring expenses** (monthly, quarterly, yearly) generated automatically, with an optional end date.
+- **Budgets** per category, monthly or yearly, with warning thresholds.
+- **Exports**: CSV of the filtered expenses, a plain-text summary report, and a tax-deduction report per year.
+- **Dark mode**, keyboard navigation, responsive layout.
 
-- 💰 **Expense Management**
-  - Add, edit, and delete expenses
-  - Attach receipts via URL
-  - Categorize expenses
-  - Mark tax-deductible items
-  - Multiple payment methods support
+## Quickstart
 
-- 🔄 **Recurring Expenses**
-  - Set up monthly, quarterly, or yearly recurring expenses
-  - Automatic expense generation
-  - Flexible date range management
-  - End date configuration
+```bash
+git clone https://github.com/ElecteSrl/AI-ready-Business-Expense-Tracker.git
+cd AI-ready-Business-Expense-Tracker
+npm install
+npm run dev
+```
 
-- 📅 **Budget Planning**
-  - Set category-wise budgets
-  - Monthly and yearly budget tracking
-  - Warning notifications for budget thresholds
-  - Visual progress indicators
+Open http://localhost:5173. `npm run build` writes a static site to `dist/`; `npm run lint` runs ESLint.
 
-- 📈 **Reports and Analytics**
-  - Detailed expense reports
-  - Category-wise breakdown
-  - Export data in multiple formats
-  - Tax deduction summaries
+Data lives in the browser's localStorage (up to 1,000 expenses or 5 MB). Clearing site data clears the expenses: export first.
 
-- 🎨 **Modern UI/UX**
-  - Clean, intuitive interface
-  - Dark mode support
-  - Responsive design
-  - Accessible components
+## CSV format
 
-## Technology Stack
+```
+Date,Amount,Category,Description,Payment Method,Tax Deductible,Receipt URL,Tags,Notes
+2026-09-01,120.00,software,"Design tool subscription",credit_card,Yes,,saas;design,
+```
 
-- **Frontend Framework**: React 18
-- **Type System**: TypeScript
-- **Styling**: Tailwind CSS
-- **State Management**: React Hooks
-- **Charts**: Recharts
-- **Icons**: Lucide React
-- **Build Tool**: Vite
-- **Date Handling**: date-fns
+Dates are ISO (`YYYY-MM-DD`), amounts have two decimals and no currency symbol, tags are `;`-separated, free text is quoted.
 
-## Getting Started
+## Stack
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/expense-tracker.git
-   cd expense-tracker
-   ```
+React 18, TypeScript, Vite, Tailwind CSS, Recharts, date-fns, Lucide icons.
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
-
-## Project Structure
+## Project structure
 
 ```
 src/
-├── components/         # React components
-├── hooks/             # Custom React hooks
-├── types/             # TypeScript type definitions
-├── utils/             # Utility functions
-├── App.tsx            # Main application component
-└── main.tsx          # Application entry point
+├── components/   # dashboard, forms, lists, export dialog, forecast card
+├── hooks/        # theme, loading state, keyboard navigation
+├── utils/        # storage, budgets, analytics (forecast), export, search
+├── types.ts
+└── App.tsx
 ```
-
-## Key Components
-
-- **Dashboard**: Main overview page with expense summaries and quick actions
-- **ExpenseForm**: Form for adding and editing expenses
-- **ExpenseList**: Tabular view of all expenses with search and filter
-- **BudgetForm**: Budget creation and management interface
-- **RecurringExpenseForm**: Setup recurring expense patterns
-- **ExpenseReport**: Detailed financial reports and analytics
-
-## Features in Detail
-
-### Expense Management
-- Add detailed expense entries with categories
-- Attach receipt images via URLs
-- Mark expenses as tax-deductible
-- Multiple payment method support
-- Rich text descriptions and notes
-
-### Budget Tracking
-- Set monthly or yearly budgets
-- Category-wise budget allocation
-- Visual progress tracking
-- Customizable warning thresholds
-- Budget vs actual comparison
-
-### Recurring Expenses
-- Configure expenses that repeat
-- Multiple frequency options
-- Optional end date setting
-- Automatic expense generation
-- Easy management interface
-
-### Reporting
-- Export expenses to CSV
-- Generate summary reports
-- Tax deduction reports
-- Category-wise analysis
-- Custom date range filtering
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Icons by [Lucide](https://lucide.dev)
-- Charts by [Recharts](https://recharts.org)
-- UI components styled with [Tailwind CSS](https://tailwindcss.com)
+[MIT](LICENSE) © ELECTE S.R.L.
